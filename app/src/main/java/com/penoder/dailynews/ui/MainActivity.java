@@ -1,7 +1,9 @@
-package com.penoder.dailynews;
+package com.penoder.dailynews.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.penoder.dailynews.R;
 
 public class MainActivity extends AppCompatActivity {
 
