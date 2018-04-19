@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.penoder.dailynews.ui.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</android.support.constraint.ConstraintLayout>
+        <variable
+            name="viewModel"
+            type="com.penoder.dailynews.ui.MainActivity" />
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.penoder.mylibrary.view.CustomTitle
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftClickCommand="@{viewModel.onLeftCommand}"
+                app:leftIcon="@drawable/icon_menu"
+                app:leftTitle="@{viewModel.leftTitle}"
+                app:title="主页" />
+
+            <com.penoder.mylibrary.view.NoScrollViewPager
+                android:id="@+id/pager_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <!--
+        侧滑界面布局
+            app:itemTextColor="@color"设置菜单title的颜色，
+            app:itemIconTint="@color"设置菜单icon的颜色，(然而并没有啊)
+            如果icon的颜色设为null，即app:itemIconTint="@null"，
+            则icon的颜色还是会随菜单的状态改变而改变。
+            http://www.jianshu.com/p/810b1767e96b
+         -->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_main"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/whitesmoke"
+            android:scrollbars="none"
+            app:headerLayout="@layout/navigation_header"
+            app:itemTextColor="@null"
+            app:menu="@menu/navigation_menu" />
+
+    </android.support.v4.widget.DrawerLayout>
+
+</layout>

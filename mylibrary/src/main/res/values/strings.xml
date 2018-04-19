@@ -5,4 +5,6 @@
     <string name="tips_not_wifi_cancel">停止播放</string>
     <string name="no_url">播放地址无效</string>
     <string name="replay">重播</string>
+    <string name="leftTxt">左标题</string>
+    <string name="titleTxt">标题</string>
 </resources>

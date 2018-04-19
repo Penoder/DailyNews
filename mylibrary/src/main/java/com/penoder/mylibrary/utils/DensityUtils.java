@@ -7,13 +7,14 @@ import android.util.TypedValue;
  * 常用单位转换的辅助类
  */
 public class DensityUtils {
+
     private DensityUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
-     * dp转px
+     * dp 转 px
      *
      * @param context
      * @param dpVal
@@ -25,7 +26,7 @@ public class DensityUtils {
     }
 
     /**
-     * sp转px
+     * sp 转 px
      *
      * @param context
      * @param spVal
@@ -37,7 +38,7 @@ public class DensityUtils {
     }
 
     /**
-     * px转dp
+     * px 转 dp
      *
      * @param context
      * @param pxVal
@@ -49,7 +50,7 @@ public class DensityUtils {
     }
 
     /**
-     * px转sp
+     * px 转 sp
      *
      * @param context
      * @param pxVal
@@ -59,4 +60,14 @@ public class DensityUtils {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 
-}  
+    /**
+     * dp 转 sp
+     *
+     * @param context
+     * @param dpVal
+     * @return
+     */
+    public static float dp2sp(Context context, float dpVal) {
+        return px2sp(context, dp2px(context, dpVal));
+    }
+}

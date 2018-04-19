@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="mainColor">#2196F3</color>
+    <color name="subColor">#E53935</color>
+
     <!-- 白色常用的设置文字的颜色. -->
     <color name="commonTextWhite">#FFFFFF</color>
     <color name="secondTextWhite">#FCFCFC</color>
