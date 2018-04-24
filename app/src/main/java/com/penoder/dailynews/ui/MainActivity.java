@@ -1,27 +1,33 @@
 package com.penoder.dailynews.ui;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.ViewGroup;
 
 import com.penoder.dailynews.R;
 import com.penoder.dailynews.adapter.CommonFragmentAdapter;
 import com.penoder.dailynews.databinding.ActivityMainBinding;
+import com.penoder.dailynews.ui.basic.BaseFragmentActivity;
 import com.penoder.mylibrary.mvvm.command.ReplyCommand;
+import com.penoder.mylibrary.utils.ScreenUtils;
 import com.penoder.mylibrary.utils.ToastUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * @author Penoder
+ * @date 18-4-20.
+ */
+public class MainActivity extends BaseFragmentActivity {
 
     private ActivityMainBinding mainBinding;
 
-    public ObservableField<String> leftTitle = new ObservableField<>("糗图");
+    private Context mContext;
 
     private Fragment fragment = new Fragment();
 
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainBinding.setViewModel(this);
-
+        mContext = this;
         initFragment();
         setDrawerLayout();
     }
@@ -50,24 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.icon_menu, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();//初始化状态
         mainBinding.drawerLayout.setDrawerListener(mDrawerToggle);
+        // 设置侧滑菜单 ListView_Slide
 
-        //设置导航栏NavigationView的点击事件
-        mainBinding.navigationMain.setNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()) { // 点击替换Fragment或者是跳转到某个Activity
-                case R.id.menu_one: // 糗图
-                    leftTitle.set(menuItem.getTitle() + "");
-                    mainBinding.drawerLayout.closeDrawers();//关闭抽屉
-                    break;
-                case R.id.menu_two:   // 糗事
-                    leftTitle.set(menuItem.getTitle() + "");
-                    mainBinding.drawerLayout.closeDrawers();//关闭抽屉
-                    break;
-                default:
-                    break;
-            }
-//            menuItem.setChecked(true);//点击了把它设为选中状态
-            return true;
-        });
+        ViewGroup.LayoutParams params = mainBinding.listSlide.getLayoutParams();
+        params.width = 3 * ScreenUtils.getScreenWidth(this) / 4;
     }
 
     /**

@@ -8,8 +8,7 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/menu_one"
-            android:icon="@drawable/icon_back"
-            android:title="@string/testOne" />
+            android:title="" />
         <item
             android:id="@+id/menu_two"
             android:icon="@drawable/icon_back"
@@ -17,23 +16,23 @@
     </group>
 
     <!--<group-->
-        <!--android:id="@+id/group_mediaPage"-->
-        <!--android:checkableBehavior="none">-->
-        <!--<item-->
-            <!--android:id="@+id/menu_video"-->
-            <!--android:icon="@drawable/icon_video"-->
-            <!--android:title="@string/video" />-->
-        <!--<item-->
-            <!--android:id="@+id/menu_music"-->
-            <!--android:icon="@drawable/icon_audio"-->
-            <!--android:title="@string/audio" />-->
+    <!--android:id="@+id/group_mediaPage"-->
+    <!--android:checkableBehavior="none">-->
+    <!--<item-->
+    <!--android:id="@+id/menu_video"-->
+    <!--android:icon="@drawable/icon_video"-->
+    <!--android:title="@string/video" />-->
+    <!--<item-->
+    <!--android:id="@+id/menu_music"-->
+    <!--android:icon="@drawable/icon_audio"-->
+    <!--android:title="@string/audio" />-->
     <!--</group>-->
     <!--<group-->
-        <!--android:id="@+id/group_setting"-->
-        <!--android:checkableBehavior="none">-->
-        <!--<item-->
-            <!--android:id="@+id/menu_setting"-->
-            <!--android:icon="@drawable/icon_setting"-->
-            <!--android:title="@string/setting" />-->
+    <!--android:id="@+id/group_setting"-->
+    <!--android:checkableBehavior="none">-->
+    <!--<item-->
+    <!--android:id="@+id/menu_setting"-->
+    <!--android:icon="@drawable/icon_setting"-->
+    <!--android:title="@string/setting" />-->
     <!--</group>-->
 </menu>

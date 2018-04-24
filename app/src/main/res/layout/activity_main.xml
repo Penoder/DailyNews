@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.penoder.dailynews.ui.MainActivity" />
+
+        <import type="com.penoder.dailynews.R" />
+
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -20,12 +23,13 @@
             android:orientation="vertical">
 
             <com.penoder.mylibrary.view.CustomTitle
+                android:id="@+id/title_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:leftClickCommand="@{viewModel.onLeftCommand}"
                 app:leftIcon="@drawable/icon_menu"
-                app:leftTitle="@{viewModel.leftTitle}"
-                app:title="主页" />
+                app:leftTitle="测试一"
+                app:titleTxt="主页" />
 
             <com.penoder.mylibrary.view.NoScrollViewPager
                 android:id="@+id/pager_main"
@@ -34,24 +38,16 @@
 
         </LinearLayout>
 
-        <!--
-        侧滑界面布局
-            app:itemTextColor="@color"设置菜单title的颜色，
-            app:itemIconTint="@color"设置菜单icon的颜色，(然而并没有啊)
-            如果icon的颜色设为null，即app:itemIconTint="@null"，
-            则icon的颜色还是会随菜单的状态改变而改变。
-            http://www.jianshu.com/p/810b1767e96b
-         -->
-        <android.support.design.widget.NavigationView
-            android:id="@+id/navigation_main"
-            android:layout_width="wrap_content"
+        <ListView
+            android:id="@+id/list_slide"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/whitesmoke"
-            android:scrollbars="none"
-            app:headerLayout="@layout/navigation_header"
-            app:itemTextColor="@null"
-            app:menu="@menu/navigation_menu" />
+            android:background="@color/white"
+            android:cacheColorHint="@color/transparent"
+            android:divider="@null"
+            android:listSelector="@color/transparent"
+            android:overScrollMode="never" />
 
     </android.support.v4.widget.DrawerLayout>
 

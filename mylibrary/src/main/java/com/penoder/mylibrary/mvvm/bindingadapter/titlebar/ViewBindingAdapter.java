@@ -1,6 +1,7 @@
 package com.penoder.mylibrary.mvvm.bindingadapter.titlebar;
 
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableField;
 import android.view.View;
 
 import com.penoder.mylibrary.mvvm.command.ReplyCommand;

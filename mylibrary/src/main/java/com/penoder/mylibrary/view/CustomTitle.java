@@ -66,12 +66,13 @@ public class CustomTitle extends LinearLayout {
     }
 
     private void initView(AttributeSet attrs) {
+        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_title_bar, null);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         imgLeftIcon = (ImageView) view.findViewById(R.id.img_leftIcon);
         txtLeftTitle = (TextView) view.findViewById(R.id.txt_leftTitle);
         imgMenuIcon = (ImageView) view.findViewById(R.id.img_menuIcon);
-
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         if (attrs != null) {
@@ -82,10 +83,10 @@ public class CustomTitle extends LinearLayout {
                     int leftIcon = typedArray.getResourceId(R.styleable.CustomTitle_leftIcon, 0);
                     imgLeftIcon.setImageResource(leftIcon);
                 } else if (styleable == R.styleable.CustomTitle_leftTitle) {  // 左标题
-                    String leftTitle = typedArray.getString(R.styleable.CustomTitle_leftTitle);
+                    String leftTitle = (String) typedArray.getText(R.styleable.CustomTitle_leftTitle);
                     txtLeftTitle.setText(leftTitle);
-                } else if (styleable == R.styleable.CustomTitle_title) { // 标题
-                    String mTitle = typedArray.getString(R.styleable.CustomTitle_title);
+                } else if (styleable == R.styleable.CustomTitle_titleTxt) { // 标题
+                    String mTitle = (String) typedArray.getText(R.styleable.CustomTitle_titleTxt);
                     txtTitle.setText(mTitle);
                 } else if (styleable == R.styleable.CustomTitle_rightIcon) { // 右菜单图标，与文字不可同时存在
                     int rightIcon = typedArray.getResourceId(R.styleable.CustomTitle_rightIcon, 0);

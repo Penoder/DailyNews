@@ -17,6 +17,7 @@
     <color name="dividerBlack">#D8D8D8</color>
 
     <!-- 颜色库. -->
+    <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
     <!--白色. -->
     <color name="white">#FFFFFF</color>
