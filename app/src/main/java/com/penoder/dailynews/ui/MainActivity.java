@@ -56,10 +56,11 @@ public class MainActivity extends BaseFragmentActivity {
                 R.drawable.icon_menu, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();//初始化状态
         mainBinding.drawerLayout.setDrawerListener(mDrawerToggle);
-        // 设置侧滑菜单 ListView_Slide
 
+        // 设置侧滑菜单 ListView_Slide
         ViewGroup.LayoutParams params = mainBinding.listSlide.getLayoutParams();
-        params.width = 3 * ScreenUtils.getScreenWidth(this) / 4;
+        params.width = 4 * ScreenUtils.getScreenWidth(this) / 5;
+        mainBinding.listSlide.setLayoutParams(params);
     }
 
     /**

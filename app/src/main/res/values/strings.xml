@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DailyNews</string>
+    <string name="app_name">每日读书</string>
     <string name="testOne">测试一</string>
     <string name="testTwo">测试二</string>
     <string name="drawer_open">打开抽屉</string>
