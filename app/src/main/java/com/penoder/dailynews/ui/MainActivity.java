@@ -13,7 +13,9 @@ import com.penoder.dailynews.adapter.CommonFragmentAdapter;
 import com.penoder.dailynews.databinding.ActivityMainBinding;
 import com.penoder.dailynews.ui.basic.BaseFragment;
 import com.penoder.dailynews.ui.basic.BaseFragmentActivity;
+import com.penoder.dailynews.ui.bookreview.ReviewFragment;
 import com.penoder.dailynews.ui.bookshelf.ShelfFragment;
+import com.penoder.dailynews.ui.bookstore.StoreFragment;
 import com.penoder.mylibrary.mvvm.command.ReplyCommand;
 import com.penoder.mylibrary.utils.ScreenUtils;
 import com.penoder.mylibrary.utils.ToastUtil;
@@ -41,7 +43,7 @@ public class MainActivity extends BaseFragmentActivity {
 
     private Context mContext;
 
-    private BaseFragment shelfFragment;
+    private BaseFragment shelfFragment, storeFragment, reviewFragment;
 
     private static Boolean isExit = false;
 
@@ -59,9 +61,11 @@ public class MainActivity extends BaseFragmentActivity {
 
     private void initFragment() {
         shelfFragment = new ShelfFragment();
+        storeFragment = new StoreFragment();
+        reviewFragment = new ReviewFragment();
 
-        mainBinding.pagerMain.setAdapter(new CommonFragmentAdapter(getSupportFragmentManager(), shelfFragment));
-        mainBinding.pagerMain.setOffscreenPageLimit(1);
+        mainBinding.pagerMain.setAdapter(new CommonFragmentAdapter(getSupportFragmentManager(), shelfFragment, storeFragment, reviewFragment));
+        mainBinding.pagerMain.setOffscreenPageLimit(2);
         mainBinding.pagerMain.setCurrentItem(0);
     }
 
@@ -101,6 +105,37 @@ public class MainActivity extends BaseFragmentActivity {
      */
     public ReplyCommand onPersonBgCommand = new ReplyCommand(() -> {
         ToastUtil.showShortToast(mContext, "背景图像点击事件");
+    });
+
+    /**
+     * 书架菜单点击按钮
+     */
+    public ReplyCommand onBookShelfCommand = new ReplyCommand(() -> {
+        // false 表示页卡切换时不要滑动动画
+        mainBinding.pagerMain.setCurrentItem(0, false);
+        mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_shelf_white);
+        mainBinding.titleMain.setTitle(R.string.book_shelf);
+        mainBinding.drawerLayout.closeDrawers();
+    });
+
+    /**
+     * 书城菜单点击按钮
+     */
+    public ReplyCommand onBookStoreCommand = new ReplyCommand(() -> {
+        mainBinding.pagerMain.setCurrentItem(1, false);
+        mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_store_white);
+        mainBinding.titleMain.setTitle(R.string.book_store);
+        mainBinding.drawerLayout.closeDrawers();
+    });
+
+    /**
+     * 书评菜单点击按钮
+     */
+    public ReplyCommand onBookReviewCommand = new ReplyCommand(() -> {
+        mainBinding.pagerMain.setCurrentItem(2, false);
+        mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_review_white);
+        mainBinding.titleMain.setTitle(R.string.book_review);
+        mainBinding.drawerLayout.closeDrawers();
     });
 
     @Override

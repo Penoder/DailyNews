@@ -8,4 +8,7 @@
 
     <!---->
     <string name="tools_person_sign">Everyone is a moon, and has a dark side which he never shows to anybody.</string>
+    <string name="book_shelf">书架</string>
+    <string name="book_store">书城</string>
+    <string name="book_review">书评</string>
 </resources>

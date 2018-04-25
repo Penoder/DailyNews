@@ -179,13 +179,21 @@ public class CustomTitle extends LinearLayout {
     }
 
     // 设置左标题
-    public void setleftTitle(String leftTitle) {
+    public void setLeftTitle(String leftTitle) {
         txtLeftTitle.setText(leftTitle);
+    }
+
+    public void setLeftTitle(int resId) {
+        txtLeftTitle.setText(resId);
     }
 
     // 设置标题
     public void setTitle(String title) {
         txtTitle.setText(title);
+    }
+
+    public void setTitle(int resId) {
+        txtTitle.setText(resId);
     }
 
     // 设置左图标

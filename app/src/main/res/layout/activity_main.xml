@@ -112,6 +112,88 @@
 
                 </FrameLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/selector_slide_menu_pressed"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:clickCommand="@{viewModel.onBookShelfCommand}">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:src="@drawable/icon_book_shelf" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
+                        android:text="@string/book_shelf"
+                        android:textColor="@color/commonTextBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/horizontal_line_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/selector_slide_menu_pressed"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:clickCommand="@{viewModel.onBookStoreCommand}">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:src="@drawable/icon_book_store" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
+                        android:text="@string/book_store"
+                        android:textColor="@color/commonTextBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/horizontal_line_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/selector_slide_menu_pressed"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:clickCommand="@{viewModel.onBookReviewCommand}">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:src="@drawable/icon_book_review" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
+                        android:text="@string/book_review"
+                        android:textColor="@color/commonTextBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </ScrollView>
