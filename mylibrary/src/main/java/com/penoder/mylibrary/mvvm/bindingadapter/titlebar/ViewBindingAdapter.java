@@ -1,7 +1,6 @@
 package com.penoder.mylibrary.mvvm.bindingadapter.titlebar;
 
 import android.databinding.BindingAdapter;
-import android.databinding.ObservableField;
 import android.view.View;
 
 import com.penoder.mylibrary.mvvm.command.ReplyCommand;
@@ -11,11 +10,10 @@ import com.penoder.mylibrary.view.CustomTitle;
  * @author Penoder
  * @date 18-4-19.
  */
-
 public class ViewBindingAdapter {
 
-    @BindingAdapter({"titleClickCommand"})
-    public static void titleClickCommand(CustomTitle titleView, final ReplyCommand titleClickCommand) {
+    @BindingAdapter({"titleClickCommand", "titleDoubleClickCommand"})
+    public static void titleCommand(CustomTitle titleView, final ReplyCommand titleClickCommand, final ReplyCommand titleDoubleClickCommand) {
         titleView.setOnTitleClickListener(new CustomTitle.OnTitleClickListener() {
             @Override
             public void onTitleClick(View view) {
@@ -26,96 +24,36 @@ public class ViewBindingAdapter {
 
             @Override
             public void onTitleDoubleClick(View view) {
-
-            }
-
-            @Override
-            public boolean onLeftIconClick(View view) {
-                return false;
-            }
-
-            @Override
-            public void onRightIconClick(View view) {
-
-            }
-        });
-    }
-
-    @BindingAdapter({"titleDoubleClickCommand"})
-    public static void titleDoubleClickCommand(CustomTitle titleView, final ReplyCommand titleDoubleClickCommand) {
-        titleView.setOnTitleClickListener(new CustomTitle.OnTitleClickListener() {
-            @Override
-            public void onTitleClick(View view) {
-            }
-
-            @Override
-            public void onTitleDoubleClick(View view) {
                 if (titleDoubleClickCommand != null) {
                     titleDoubleClickCommand.execute();
                 }
             }
+        });
+    }
 
-            @Override
-            public boolean onLeftIconClick(View view) {
-                return false;
-            }
-
-            @Override
-            public void onRightIconClick(View view) {
-
+    @BindingAdapter({"leftIconClickCommand"})
+    public static void leftIconClickCommand(CustomTitle titleView, final ReplyCommand leftIconClickCommand) {
+        titleView.setOnLeftIconClickListener(view -> {
+            if (leftIconClickCommand != null) {
+                leftIconClickCommand.execute();
             }
         });
     }
 
-    @BindingAdapter({"leftClickCommand"})
-    public static void leftClickCommand(CustomTitle titleView, final ReplyCommand leftClickCommand) {
-        titleView.setOnTitleClickListener(new CustomTitle.OnTitleClickListener() {
-            @Override
-            public void onTitleClick(View view) {
-            }
-
-            @Override
-            public void onTitleDoubleClick(View view) {
-
-            }
-
-            @Override
-            public boolean onLeftIconClick(View view) {
-                if (leftClickCommand != null) {
-                    leftClickCommand.execute();
-                }
-                return true;
-            }
-
-            @Override
-            public void onRightIconClick(View view) {
-
+    @BindingAdapter({"rightIconClickCommand"})
+    public static void rightIconClickCommand(CustomTitle titleView, final ReplyCommand rightIconClickCommand) {
+        titleView.setOnRightIconClickListener(view -> {
+            if (rightIconClickCommand != null) {
+                rightIconClickCommand.execute();
             }
         });
     }
 
-    @BindingAdapter({"rightClickCommand"})
-    public static void rightClickCommand(CustomTitle titleView, final ReplyCommand rightClickCommand) {
-        titleView.setOnTitleClickListener(new CustomTitle.OnTitleClickListener() {
-            @Override
-            public void onTitleClick(View view) {
-            }
-
-            @Override
-            public void onTitleDoubleClick(View view) {
-
-            }
-
-            @Override
-            public boolean onLeftIconClick(View view) {
-                return false;
-            }
-
-            @Override
-            public void onRightIconClick(View view) {
-                if (rightClickCommand != null) {
-                    rightClickCommand.execute();
-                }
+    @BindingAdapter({"rightTitleClickCommand"})
+    public static void rightTitleClickCommand(CustomTitle titleView, final ReplyCommand rightTitleClickCommand) {
+        titleView.setOnRightTitleClickListener(view -> {
+            if (rightTitleClickCommand != null) {
+                rightTitleClickCommand.execute();
             }
         });
     }

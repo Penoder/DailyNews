@@ -1,4 +1,4 @@
-package com.penoder.dailynews.ui.bookshelf;
+package com.penoder.dailynews.ui.bookmark;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -9,18 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.penoder.dailynews.R;
-import com.penoder.dailynews.databinding.FragmentShelfBinding;
+import com.penoder.dailynews.databinding.FragmentMarkBinding;
 import com.penoder.dailynews.ui.basic.BaseFragment;
 
 /**
- * 书架
- *
  * @author Penoder
- * @date 18-4-25.
+ * @date 18-4-26.
  */
-public class ShelfFragment extends BaseFragment {
+public class MarkFragment extends BaseFragment {
 
-    private FragmentShelfBinding shelfBinding;
+    private FragmentMarkBinding markBinding;
 
     private Context mContext;
 
@@ -33,9 +31,9 @@ public class ShelfFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        shelfBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_shelf, container, false);
-        shelfBinding.executePendingBindings();
-        shelfBinding.setViewModel(this);
-        return shelfBinding.getRoot();
+        markBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mark, container, false);
+        markBinding.executePendingBindings();
+        markBinding.setViewModel(this);
+        return markBinding.getRoot();
     }
 }

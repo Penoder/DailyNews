@@ -325,16 +325,19 @@
         <attr name="leftIcon" format="reference" />
         <attr name="leftTitle" format="string" />
         <attr name="titleTxt" format="string" />
+        <attr name="menuTitle" format="string" />
         <attr name="rightIcon" format="reference" />
         <attr name="textColor" format="color" />
         <attr name="leftTitleSize" format="dimension" />
         <attr name="titleSize" format="dimension" />
+        <attr name="menuTitleSize" format="dimension" />
 
         <!-- MVVM ViewBindingAdapter 定义属性-->
-        <attr name="leftClickCommand" format="reference" />
-        <attr name="rightClickCommand" format="reference" />
+        <attr name="leftIconClickCommand" format="reference" />
         <attr name="titleClickCommand" format="reference" />
         <attr name="titleDoubleClickCommand" format="reference" />
+        <attr name="rightIconClickCommand" format="reference" />
+        <attr name="rightTitleClickCommand" format="reference" />
     </declare-styleable>
 
     <!-- 圆形ImageView. -->

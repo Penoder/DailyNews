@@ -27,8 +27,9 @@
                 android:id="@+id/title_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftClickCommand="@{viewModel.onLeftCommand}"
                 app:leftIcon="@drawable/icon_book_shelf_white"
+                app:leftIconClickCommand="@{viewModel.onLeftIconCommand}"
+                app:rightTitleClickCommand="@{viewModel.onRightTitleCommand}"
                 app:titleTxt="书架" />
 
             <com.penoder.mylibrary.view.NoScrollViewPager
@@ -189,6 +190,34 @@
                         android:paddingEnd="16dp"
                         android:paddingStart="16dp"
                         android:text="@string/book_review"
+                        android:textColor="@color/commonTextBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/horizontal_line_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/selector_slide_menu_pressed"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:clickCommand="@{viewModel.onBookMarkCommand}">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:src="@drawable/icon_book_mark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
+                        android:text="@string/book_mark"
                         android:textColor="@color/commonTextBlack"
                         android:textSize="16sp" />
 

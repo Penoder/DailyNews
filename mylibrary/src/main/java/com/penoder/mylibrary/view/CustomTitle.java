@@ -45,11 +45,14 @@ public class CustomTitle extends LinearLayout {
      */
     private ImageView imgMenuIcon;
 
-    private boolean isDoubleClick;
+    /**
+     * 菜单标题
+     */
+    private TextView txtMenuTitle;
+
+    private boolean isDoubleClick = false;
 
     private Timer tExit;
-
-    public OnTitleClickListener onTitleClickListener;
 
     public CustomTitle(Context context) {
         this(context, null);
@@ -73,6 +76,7 @@ public class CustomTitle extends LinearLayout {
         imgLeftIcon = (ImageView) view.findViewById(R.id.img_leftIcon);
         txtLeftTitle = (TextView) view.findViewById(R.id.txt_leftTitle);
         imgMenuIcon = (ImageView) view.findViewById(R.id.img_menuIcon);
+        txtMenuTitle = (TextView) view.findViewById(R.id.txt_menuTitle);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         if (attrs != null) {
@@ -86,8 +90,11 @@ public class CustomTitle extends LinearLayout {
                     String leftTitle = (String) typedArray.getText(R.styleable.CustomTitle_leftTitle);
                     txtLeftTitle.setText(leftTitle);
                 } else if (styleable == R.styleable.CustomTitle_titleTxt) { // 标题
-                    String mTitle = (String) typedArray.getText(R.styleable.CustomTitle_titleTxt);
-                    txtTitle.setText(mTitle);
+                    String title = (String) typedArray.getText(R.styleable.CustomTitle_titleTxt);
+                    txtTitle.setText(title);
+                } else if (styleable == R.styleable.CustomTitle_menuTitle) { // 菜单标题
+                    String menuTitle = (String) typedArray.getText(R.styleable.CustomTitle_menuTitle);
+                    txtMenuTitle.setText(menuTitle);
                 } else if (styleable == R.styleable.CustomTitle_rightIcon) { // 右菜单图标，与文字不可同时存在
                     int rightIcon = typedArray.getResourceId(R.styleable.CustomTitle_rightIcon, 0);
                     imgMenuIcon.setImageResource(rightIcon);
@@ -95,6 +102,7 @@ public class CustomTitle extends LinearLayout {
                     int textColor = typedArray.getColor(R.styleable.CustomTitle_textColor, 0);
                     txtLeftTitle.setTextColor(textColor);
                     txtTitle.setTextColor(textColor);
+                    txtMenuTitle.setTextColor(textColor);
                 } else if (styleable == R.styleable.CustomTitle_leftTitleSize) {
                     float leftTitleSize = typedArray.getDimension(R.styleable.CustomTitle_leftTitleSize, 0);
                     leftTitleSize = DensityUtils.dp2sp(mContext, leftTitleSize);
@@ -103,6 +111,10 @@ public class CustomTitle extends LinearLayout {
                     float titleSize = typedArray.getDimension(R.styleable.CustomTitle_titleSize, 0);
                     titleSize = DensityUtils.dp2sp(mContext, titleSize);
                     txtLeftTitle.setTextSize(titleSize);
+                } else if (styleable == R.styleable.CustomTitle_menuTitleSize) {
+                    float menuTitleSize = typedArray.getDimension(R.styleable.CustomTitle_menuTitleSize, 0);
+                    menuTitleSize = DensityUtils.dp2sp(mContext, menuTitleSize);
+                    txtMenuTitle.setTextSize(menuTitleSize);
                 }
             }
             typedArray.recycle();
@@ -111,28 +123,26 @@ public class CustomTitle extends LinearLayout {
 
         // 左边图标点击事件，如果代码中不重写，直接结束该Activity
         imgLeftIcon.setOnClickListener(v -> {
-            if (onTitleClickListener != null) {
-                if (!onTitleClickListener.onLeftIconClick(v)) {
-                    ((Activity) mContext).finish();
-                } else {
-                    onTitleClickListener.onLeftIconClick(v);
-                }
+            if (onLeftIconClickListener != null) {
+                onLeftIconClickListener.onLeftIconClick(v);
             } else {
                 ((Activity) mContext).finish();
             }
         });
 
         imgMenuIcon.setOnClickListener(v -> {
-            if (onTitleClickListener != null)
-                onTitleClickListener.onRightIconClick(v);
+            if (onRightIconClickListener != null) {
+                onRightIconClickListener.onRightIconClick(v);
+            }
         });
 
         txtTitle.setOnClickListener(v -> {
             if (onTitleClickListener != null) {
                 if (!isDoubleClick) {
                     isDoubleClick = true;
-                    if (tExit == null)
+                    if (tExit == null) {
                         tExit = new Timer();
+                    }
                     tExit.schedule(new TimerTask() {
                         @Override
                         public void run() {     // 这是在子线程当中，子线程设置单击双击事件的话，不能够更新UI啊，否则异常
@@ -141,18 +151,56 @@ public class CustomTitle extends LinearLayout {
                                 onTitleClickListener.onTitleClick(view);     // 单击事件
                             });
                         }
-                    }, 1000); // 如果1秒钟内没有点击两次，则启动定时器取消掉刚才执行的任务
+                    }, 200); // 如果没有点击两次，则启动定时器取消掉刚才执行的任务
                 } else {
-                    if (tExit != null)
+                    isDoubleClick = false;
+                    if (tExit != null) {
                         tExit.cancel();
+                        tExit = null;
+                    }
                     onTitleClickListener.onTitleDoubleClick(view);     // 双击事件
                 }
             }
         });
+
+        txtMenuTitle.setOnClickListener(v -> {
+            if (onRightTitleClickListener != null) {
+                onRightTitleClickListener.onRightTitleClick(v);
+            }
+        });
+    }
+
+    public OnLeftIconClickListener onLeftIconClickListener;
+
+    public OnTitleClickListener onTitleClickListener;
+
+    public OnRightIconClickListener onRightIconClickListener;
+
+    public OnRightTitleClickListener onRightTitleClickListener;
+
+    public void setOnLeftIconClickListener(OnLeftIconClickListener onLeftIconClickListener) {
+        this.onLeftIconClickListener = onLeftIconClickListener;
     }
 
     public void setOnTitleClickListener(OnTitleClickListener onTitleClickListener) {
         this.onTitleClickListener = onTitleClickListener;
+    }
+
+    public void setOnRightIconClickListener(OnRightIconClickListener onRightIconClickListener) {
+        this.onRightIconClickListener = onRightIconClickListener;
+    }
+
+    public void setOnRightTitleClickListener(OnRightTitleClickListener onRightTitleClickListener) {
+        this.onRightTitleClickListener = onRightTitleClickListener;
+    }
+
+    public interface OnLeftIconClickListener {
+
+        /**
+         * 左边图标点击事件
+         */
+        void onLeftIconClick(View view);
+
     }
 
     public interface OnTitleClickListener {
@@ -166,16 +214,24 @@ public class CustomTitle extends LinearLayout {
          * 标题双击事件
          */
         void onTitleDoubleClick(View view);
+    }
 
-        /**
-         * 左边图标点击事件
-         */
-        boolean onLeftIconClick(View view);
+    public interface OnRightIconClickListener {
 
         /**
          * 右边图标点击事件
          */
         void onRightIconClick(View view);
+
+    }
+
+    public interface OnRightTitleClickListener {
+
+        /**
+         * 右边标题点击事件
+         */
+        void onRightTitleClick(View view);
+
     }
 
     // 设置左标题
@@ -194,6 +250,15 @@ public class CustomTitle extends LinearLayout {
 
     public void setTitle(int resId) {
         txtTitle.setText(resId);
+    }
+
+    // 设置菜单标题
+    public void setMenuTitle(String menuTitle) {
+        txtMenuTitle.setText(menuTitle);
+    }
+
+    public void setMenuTitle(int resId) {
+        txtMenuTitle.setText(resId);
     }
 
     // 设置左图标

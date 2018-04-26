@@ -11,4 +11,6 @@
     <string name="book_shelf">书架</string>
     <string name="book_store">书城</string>
     <string name="book_review">书评</string>
+    <string name="book_mark">书签</string>
+    <string name="edit">编辑</string>
 </resources>

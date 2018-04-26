@@ -13,6 +13,7 @@ import com.penoder.dailynews.adapter.CommonFragmentAdapter;
 import com.penoder.dailynews.databinding.ActivityMainBinding;
 import com.penoder.dailynews.ui.basic.BaseFragment;
 import com.penoder.dailynews.ui.basic.BaseFragmentActivity;
+import com.penoder.dailynews.ui.bookmark.MarkFragment;
 import com.penoder.dailynews.ui.bookreview.ReviewFragment;
 import com.penoder.dailynews.ui.bookshelf.ShelfFragment;
 import com.penoder.dailynews.ui.bookstore.StoreFragment;
@@ -43,8 +44,11 @@ public class MainActivity extends BaseFragmentActivity {
 
     private Context mContext;
 
-    private BaseFragment shelfFragment, storeFragment, reviewFragment;
+//    private BaseFragment shelfFragment, storeFragment, reviewFragment;
 
+    /**
+     * 双击退出
+     */
     private static Boolean isExit = false;
 
     private Timer tExit;
@@ -60,13 +64,16 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initFragment() {
-        shelfFragment = new ShelfFragment();
-        storeFragment = new StoreFragment();
-        reviewFragment = new ReviewFragment();
+        BaseFragment shelfFragment = new ShelfFragment();
+        BaseFragment storeFragment = new StoreFragment();
+        BaseFragment reviewFragment = new ReviewFragment();
+        BaseFragment markFragment = new MarkFragment();
 
-        mainBinding.pagerMain.setAdapter(new CommonFragmentAdapter(getSupportFragmentManager(), shelfFragment, storeFragment, reviewFragment));
-        mainBinding.pagerMain.setOffscreenPageLimit(2);
+        mainBinding.pagerMain.setAdapter(new CommonFragmentAdapter(getSupportFragmentManager(),
+                shelfFragment, storeFragment, reviewFragment, markFragment));
+        mainBinding.pagerMain.setOffscreenPageLimit(3);
         mainBinding.pagerMain.setCurrentItem(0);
+        mainBinding.titleMain.setMenuTitle(R.string.edit);
     }
 
     private void setDrawerLayout() {
@@ -75,7 +82,7 @@ public class MainActivity extends BaseFragmentActivity {
         mDrawerToggle.syncState();//初始化状态
         mainBinding.drawerLayout.setDrawerListener(mDrawerToggle);
 
-        int width = 4 * ScreenUtils.getScreenWidth(this) / 5;
+        int width = (int) (0.75 * ScreenUtils.getScreenWidth(this));
 
         // 设置侧滑菜单 ListView_Slide
         ViewGroup.LayoutParams params = mainBinding.scrollSlide.getLayoutParams();
@@ -91,7 +98,14 @@ public class MainActivity extends BaseFragmentActivity {
     /**
      * 标题栏左侧按钮点击事件
      */
-    public ReplyCommand onLeftCommand = new ReplyCommand(() -> mainBinding.drawerLayout.openDrawer(Gravity.START));
+    public ReplyCommand onLeftIconCommand = new ReplyCommand(() -> mainBinding.drawerLayout.openDrawer(Gravity.START));
+
+    /**
+     * 标题栏右侧标题按钮点击事件
+     */
+    public ReplyCommand onRightTitleCommand = new ReplyCommand(() -> {
+        
+    });
 
     /**
      * 头像点击事件
@@ -115,6 +129,7 @@ public class MainActivity extends BaseFragmentActivity {
         mainBinding.pagerMain.setCurrentItem(0, false);
         mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_shelf_white);
         mainBinding.titleMain.setTitle(R.string.book_shelf);
+        mainBinding.titleMain.setMenuTitle(R.string.edit);
         mainBinding.drawerLayout.closeDrawers();
     });
 
@@ -125,6 +140,7 @@ public class MainActivity extends BaseFragmentActivity {
         mainBinding.pagerMain.setCurrentItem(1, false);
         mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_store_white);
         mainBinding.titleMain.setTitle(R.string.book_store);
+        mainBinding.titleMain.setMenuTitle("");
         mainBinding.drawerLayout.closeDrawers();
     });
 
@@ -135,6 +151,18 @@ public class MainActivity extends BaseFragmentActivity {
         mainBinding.pagerMain.setCurrentItem(2, false);
         mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_review_white);
         mainBinding.titleMain.setTitle(R.string.book_review);
+        mainBinding.titleMain.setMenuTitle("");
+        mainBinding.drawerLayout.closeDrawers();
+    });
+
+    /**
+     * 书签菜单点击按钮
+     */
+    public ReplyCommand onBookMarkCommand = new ReplyCommand(() -> {
+        mainBinding.pagerMain.setCurrentItem(3, false);
+        mainBinding.titleMain.setLeftIcon(R.drawable.icon_book_mark_white);
+        mainBinding.titleMain.setTitle(R.string.book_mark);
+        mainBinding.titleMain.setMenuTitle("");
         mainBinding.drawerLayout.closeDrawers();
     });
 
