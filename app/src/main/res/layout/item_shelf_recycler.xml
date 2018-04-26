@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingEnd="18dp"
+    android:paddingStart="18dp">
+
+    <ImageView
+        android:id="@+id/img_shelfBookFeed"
+        android:layout_width="148dp"
+        android:layout_height="210dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/backgroundColor" />
+
+    <TextView
+        android:id="@+id/txt_shelfBookName"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/commonTextBlack"
+        android:textSize="14sp" />
+
+</LinearLayout>
