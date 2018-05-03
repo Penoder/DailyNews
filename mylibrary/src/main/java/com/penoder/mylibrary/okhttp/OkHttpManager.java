@@ -34,7 +34,7 @@ public class OkHttpManager {
     /**
      * 定义该类的实例，方便其他方法的链式调用
      */
-    private static OkHttpManager mInstance;
+//    private static OkHttpManager mInstance;
 
     /**
      * OkHttp 实例
@@ -61,13 +61,13 @@ public class OkHttpManager {
 
     public static OkHttpManager create(Context mContext) {
         mWeakReference = new WeakReference<>(mContext);
-        if (mInstance == null) {
-            synchronized (OkHttpManager.class) {
-                if (mInstance == null) {
-                    mInstance = new OkHttpManager();
-                }
-            }
-        }
+//        if (mInstance == null) {
+//            synchronized (OkHttpManager.class) {
+//                if (mInstance == null) {
+        OkHttpManager mInstance = new OkHttpManager();
+//                }
+//            }
+//        }
         return mInstance;
     }
 
