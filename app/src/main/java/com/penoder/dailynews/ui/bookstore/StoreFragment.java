@@ -24,4 +24,14 @@ public class StoreFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
         return view;
     }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
 }

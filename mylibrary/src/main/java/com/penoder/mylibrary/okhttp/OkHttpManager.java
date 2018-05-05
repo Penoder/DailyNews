@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
@@ -34,7 +35,7 @@ public class OkHttpManager {
     /**
      * 定义该类的实例，方便其他方法的链式调用
      */
-//    private static OkHttpManager mInstance;
+    private static OkHttpManager mInstance;
 
     /**
      * OkHttp 实例
@@ -61,13 +62,13 @@ public class OkHttpManager {
 
     public static OkHttpManager create(Context mContext) {
         mWeakReference = new WeakReference<>(mContext);
-//        if (mInstance == null) {
-//            synchronized (OkHttpManager.class) {
-//                if (mInstance == null) {
-        OkHttpManager mInstance = new OkHttpManager();
-//                }
-//            }
-//        }
+        if (mInstance == null) {
+            synchronized (OkHttpManager.class) {
+                if (mInstance == null) {
+                    mInstance = new OkHttpManager();
+                }
+            }
+        }
         return mInstance;
     }
 
@@ -205,12 +206,12 @@ public class OkHttpManager {
     /**
      * 为了每次重新创建 Dialog,调用时先将其销毁掉
      */
-//    private void destroyDialog() {
-//        if (loadDialog != null) {
-//            loadDialog.dismiss();
-//            loadDialog = null;
-//        }
-//    }
+    private void destroyDialog() {
+        if (loadDialog != null) {
+            loadDialog.dismiss();
+            loadDialog = null;
+        }
+    }
 
     /**
      * 表示开始执行网络请求
@@ -237,15 +238,15 @@ public class OkHttpManager {
         }
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 sendFailure(call, e, okCallBack);
             }
 
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    String jsonStr = "";
-                    if (response != null && response.body() != null) {
+                    String jsonStr;
+                    if (response.body() != null) {
                         jsonStr = response.body().string();
                         if (needParse) {
                             if (TextUtils.isEmpty(jsonStr)) {
@@ -278,20 +279,14 @@ public class OkHttpManager {
 
     private void sendFailure(Call call, Exception e, OkCallBack okCallBack) {
         mHandler.post(() -> {
-            if (loadDialog != null && loadDialog.isShowing()) {
-                loadDialog.dismiss();
-                loadDialog = null;
-            }
+            destroyDialog();
             okCallBack.failure(call, e);
         });
     }
 
     private void sendResponse(OkCallBack okCallBack, boolean isSuccess, Response response, Object obj) {
         mHandler.post(() -> {
-            if (loadDialog != null && loadDialog.isShowing()) {
-                loadDialog.dismiss();
-                loadDialog = null;
-            }
+            destroyDialog();
             okCallBack.onResponse(isSuccess, response, obj);
         });
     }

@@ -22,18 +22,23 @@ public class MarkFragment extends BaseFragment {
 
     private Context mContext;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mContext = getActivity();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         markBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mark, container, false);
         markBinding.executePendingBindings();
         markBinding.setViewModel(this);
+        mContext = getActivity();
         return markBinding.getRoot();
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData() {
+
     }
 }

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.penoder.dailynews.R;
 import com.penoder.dailynews.ui.basic.BaseFragment;
 
-
 /**
  * 书评
  *
@@ -23,5 +22,15 @@ public class ReviewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review, container, false);
         return view;
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData() {
+
     }
 }

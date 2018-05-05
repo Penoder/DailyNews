@@ -44,8 +44,6 @@ public class MainActivity extends BaseFragmentActivity {
 
     private Context mContext;
 
-//    private BaseFragment shelfFragment, storeFragment, reviewFragment;
-
     /**
      * 双击退出
      */
@@ -61,6 +59,11 @@ public class MainActivity extends BaseFragmentActivity {
         mContext = this;
         initFragment();
         setDrawerLayout();
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     private void initFragment() {
@@ -104,7 +107,7 @@ public class MainActivity extends BaseFragmentActivity {
      * 标题栏右侧标题按钮点击事件
      */
     public ReplyCommand onRightTitleCommand = new ReplyCommand(() -> {
-        
+
     });
 
     /**

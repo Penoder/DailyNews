@@ -17,6 +17,7 @@ import com.penoder.dailynews.databinding.FragmentShelfBinding;
 import com.penoder.dailynews.entity.BookShelf;
 import com.penoder.dailynews.ui.basic.BaseFragment;
 import com.penoder.mylibrary.mvvm.command.ReplyCommand;
+import com.penoder.mylibrary.utils.ScreenUtils;
 import com.penoder.mylibrary.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -36,25 +37,23 @@ public class ShelfFragment extends BaseFragment {
 
     private CommonRecycleAdapter<BookShelf> shelfAdapter;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mContext = getActivity();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         shelfBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_shelf, container, false);
         shelfBinding.executePendingBindings();
         shelfBinding.setViewModel(this);
-
-        initView();
-
+        mContext = getActivity();
         return shelfBinding.getRoot();
     }
 
-    private void initView() {
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void initView() {
         List<BookShelf> bookShelves = new ArrayList<>();
 
         for (int i = 0; i < 30; i++) {
@@ -70,13 +69,12 @@ public class ShelfFragment extends BaseFragment {
                 ImageView imgFeed = holder.getView(R.id.img_shelfBookFeed);
                 if (!(position + "").equals(imgFeed.getTag(imgFeed.getId()))) {
                     ViewGroup.LayoutParams params = imgFeed.getLayoutParams();
-                    int width = params.width;
-                    params.height = 210 * width / 148;
+                    int width = ScreenUtils.getScreenWidth(mContext);
+                    params.width = width / 4;
+                    params.height = width / 3;
                     imgFeed.setLayoutParams(params);
                     imgFeed.setTag(imgFeed.getId(), position + "");
                 }
-
-
                 ((TextView) holder.getView(R.id.txt_shelfBookName)).setText(bookShelf.getBookName());
 
             }
