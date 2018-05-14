@@ -1,9 +1,22 @@
 package com.penoder.dailynews.ui;
 
+import android.app.Application;
+import android.app.Fragment;
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.ComponentCallbacks;
+import android.content.ContentProvider;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -168,6 +181,27 @@ public class MainActivity extends BaseFragmentActivity {
         mainBinding.titleMain.setMenuTitle("");
         mainBinding.drawerLayout.closeDrawers();
     });
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    public class MyClass extends Application {
+
+        @Override
+        public void onLowMemory() {
+            super.onLowMemory();
+        }
+    }
 
     @Override
     public void onBackPressed() {
