@@ -1,5 +1,7 @@
 package com.penoder.dailynews.adapter;
 
+import android.view.View;
+
 import java.util.List;
 
 /**
@@ -17,6 +19,14 @@ public class CommonHFAdapter<T> extends CommonRecycleAdapter {
 
     @Override
     public void onConvertView(Object o, ViewHolder holder, int position) {
+
+    }
+
+    public void addHeaderView(View headerView) {
+
+    }
+
+    public void addFooterView(View footerView) {
 
     }
 }
