@@ -7,4 +7,9 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/img_splash</item>
+    </style>
+
 </resources>

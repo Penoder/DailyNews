@@ -17,7 +17,7 @@ public abstract class CommonRecycleAdapter<T> extends RecyclerView.Adapter<Commo
 
     private int layoutId;
 
-    public CommonRecycleAdapter(List<T> datas, int layoutId) {
+    protected CommonRecycleAdapter(List<T> datas, int layoutId) {
         this.datas = datas;
         this.layoutId = layoutId;
     }

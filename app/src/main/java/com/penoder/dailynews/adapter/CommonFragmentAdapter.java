@@ -16,6 +16,8 @@ public class CommonFragmentAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> fragments = new ArrayList<>();
 
+    private List<String> mTitles = null;
+
     public CommonFragmentAdapter(FragmentManager fm, Fragment... fragments) {
         super(fm);
         Collections.addAll(this.fragments, fragments);
@@ -26,6 +28,18 @@ public class CommonFragmentAdapter extends FragmentPagerAdapter {
         this.fragments = fragments;
     }
 
+    public void setTitles(List<String> titles) {
+        mTitles = titles;
+    }
+
+    public void setTitles(String[] titles) {
+        if (mTitles == null) {
+            mTitles = new ArrayList<>();
+        }
+        mTitles.clear();
+        Collections.addAll(mTitles, titles);
+    }
+
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
@@ -34,5 +48,14 @@ public class CommonFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return fragments != null ? fragments.size() : 0;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (mTitles != null && mTitles.size() > 0) {
+            return mTitles.get(position);
+        } else {
+            return super.getPageTitle(position);
+        }
     }
 }

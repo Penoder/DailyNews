@@ -1,32 +1,48 @@
 package com.penoder.dailynews.ui.basic;
 
-import android.content.Intent;
+import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.penoder.dailynews.BR;
 import com.penoder.mylibrary.utils.ToastUtil;
 
 /**
  * @author Penoder
  * @date 18-4-22.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatActivity {
+
+    private V binding;
+    protected Context mContext;
 
     private long lastClickTime = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
+        mContext = this;
+        binding = DataBindingUtil.setContentView(this, getLayoutID());
+        BaseViewModel viewModel = createViewModel();
+        binding.setVariable(BR.viewModel, viewModel != null ? viewModel : this);
         initData();
     }
 
-    public abstract void initData();
+    protected V getBinding() {
+        return binding;
+    }
+
+    protected abstract int getLayoutID();
+
+    public void initData() {
+    }
+
+    protected BaseViewModel createViewModel() {
+        return null;
+    }
 
     @Override
     protected void onDestroy() {
@@ -35,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private boolean isFastClick() {
-        return isFastClick(200);
+        return isFastClick(500);
     }
 
     /**
@@ -50,27 +66,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         lastClickTime = System.currentTimeMillis();
         return false;
-    }
-
-    private void startActivity(Class cls) {
-        Intent intent = new Intent(this, cls);
-        startActivity(intent);
-    }
-
-    private void startActivity(Class cls, Bundle bundle) {
-        Intent intent = new Intent(this, cls);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    private void startActivityForResult(Class cls, int requestCode) {
-        Intent intent = new Intent(this, cls);
-        startActivityForResult(intent, requestCode);
-    }
-
-    private void startActivityForResult(Class cls, Bundle bundle, int requestCode) {
-        Intent intent = new Intent(this, cls);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, requestCode);
     }
 }

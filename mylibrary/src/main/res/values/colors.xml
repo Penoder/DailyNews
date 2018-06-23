@@ -16,6 +16,8 @@
     <color name="hintTextBlack">#B6B6B6</color>
     <color name="dividerBlack">#D8D8D8</color>
 
+    <color name="backgroundColor">#EDEDED</color>
+
     <!-- 颜色库. -->
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>

@@ -1,31 +1,69 @@
 package com.penoder.dailynews.ui.basic;
 
-import android.content.Intent;
+import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.penoder.dailynews.BR;
 
 /**
  * @author Penoder
  * @date 18-4-22.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
 
+    private V binding;
+    protected Context mContext;
     private long lastClickTime = -1;
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, getLayoutID(), container, false);
+        binding.executePendingBindings();
+        BaseViewModel viewModel = createViewModel();
+        binding.setVariable(BR.viewModel, viewModel == null ? this : viewModel);
+
+        return binding.getRoot();
+    }
+
+    protected V getBinding() {
+        return binding;
+    }
+
+    private BaseViewModel createViewModel() {
+        return null;
+    }
+
+    protected abstract int getLayoutID();
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
     }
 
-    public abstract void initView();
+    public void initView() {
+    }
 
-    public abstract void initData();
+    public void initData() {
+    }
 
     private boolean isFastClick() {
-        return isFastClick(200);
+        return isFastClick(500);
     }
 
     /**
@@ -40,27 +78,5 @@ public abstract class BaseFragment extends Fragment {
         }
         lastClickTime = System.currentTimeMillis();
         return false;
-    }
-
-    private void startActivity(Class cls) {
-        Intent intent = new Intent(getActivity(), cls);
-        startActivity(intent);
-    }
-
-    private void startActivity(Class cls, Bundle bundle) {
-        Intent intent = new Intent(getActivity(), cls);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    private void startActivityForResult(Class cls, int requestCode) {
-        Intent intent = new Intent(getActivity(), cls);
-        startActivityForResult(intent, requestCode);
-    }
-
-    private void startActivityForResult(Class cls, Bundle bundle, int requestCode) {
-        Intent intent = new Intent(getActivity(), cls);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, requestCode);
     }
 }

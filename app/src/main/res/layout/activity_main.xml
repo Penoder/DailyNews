@@ -35,7 +35,8 @@
             <com.penoder.mylibrary.view.NoScrollViewPager
                 android:id="@+id/pager_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/white" />
 
         </LinearLayout>
 
@@ -50,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@color/white"
                 android:orientation="vertical">
 
                 <FrameLayout
@@ -61,7 +61,8 @@
                         android:id="@+id/img_personBg"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:background="@drawable/img_default_bg"
+                        android:background="@drawable/navigation_header"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
                         app:clickCommand="@{viewModel.onPersonBgCommand}" />
 
@@ -72,7 +73,8 @@
                         android:layout_marginBottom="36dp"
                         android:layout_marginStart="16dp"
                         android:src="@drawable/icon_default_avatar"
-                        app:clickCommand="@{viewModel.onAvatarCommand}" />
+                        app:clickCommand="@{viewModel.onAvatarCommand}"
+                        app:uri="@{viewModel.headUrl}" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -124,6 +126,7 @@
                     <ImageView
                         android:layout_width="56dp"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
                         android:padding="16dp"
                         android:src="@drawable/icon_book_shelf" />
 
@@ -152,6 +155,7 @@
                     <ImageView
                         android:layout_width="56dp"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
                         android:padding="16dp"
                         android:src="@drawable/icon_book_store" />
 
@@ -180,6 +184,7 @@
                     <ImageView
                         android:layout_width="56dp"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
                         android:padding="16dp"
                         android:src="@drawable/icon_book_review" />
 
@@ -208,6 +213,7 @@
                     <ImageView
                         android:layout_width="56dp"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
                         android:padding="16dp"
                         android:src="@drawable/icon_book_mark" />
 

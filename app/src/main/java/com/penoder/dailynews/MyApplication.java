@@ -25,4 +25,14 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
     }
+
+    private boolean isLogin = false;
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 }

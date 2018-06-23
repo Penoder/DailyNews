@@ -1,5 +1,6 @@
 package com.penoder.mylibrary.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -43,12 +44,12 @@ public class CustomTitle extends LinearLayout {
     /**
      * 右侧菜单按钮
      */
-    private ImageView imgMenuIcon;
+    private ImageView imgRightIcon;
 
     /**
      * 菜单标题
      */
-    private TextView txtMenuTitle;
+    private TextView txtRightTitle;
 
     private boolean isDoubleClick = false;
 
@@ -68,15 +69,15 @@ public class CustomTitle extends LinearLayout {
         initView(attrs);
     }
 
+    @SuppressLint("InflateParams")
     private void initView(AttributeSet attrs) {
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_title_bar, null);
         txtTitle = (TextView) view.findViewById(R.id.txt_title);
         imgLeftIcon = (ImageView) view.findViewById(R.id.img_leftIcon);
         txtLeftTitle = (TextView) view.findViewById(R.id.txt_leftTitle);
-        imgMenuIcon = (ImageView) view.findViewById(R.id.img_menuIcon);
-        txtMenuTitle = (TextView) view.findViewById(R.id.txt_menuTitle);
+        imgRightIcon = (ImageView) view.findViewById(R.id.img_rightIcon);
+        txtRightTitle = (TextView) view.findViewById(R.id.txt_rightTitle);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         if (attrs != null) {
@@ -86,23 +87,26 @@ public class CustomTitle extends LinearLayout {
                 if (styleable == R.styleable.CustomTitle_leftIcon) { // 左图标
                     int leftIcon = typedArray.getResourceId(R.styleable.CustomTitle_leftIcon, 0);
                     imgLeftIcon.setImageResource(leftIcon);
+                } else if (styleable == R.styleable.CustomTitle_leftIconEnable) {
+                    boolean enable = typedArray.getBoolean(R.styleable.CustomTitle_leftIconEnable, true);
+                    imgLeftIcon.setEnabled(enable);
                 } else if (styleable == R.styleable.CustomTitle_leftTitle) {  // 左标题
                     String leftTitle = (String) typedArray.getText(R.styleable.CustomTitle_leftTitle);
                     txtLeftTitle.setText(leftTitle);
                 } else if (styleable == R.styleable.CustomTitle_titleTxt) { // 标题
                     String title = (String) typedArray.getText(R.styleable.CustomTitle_titleTxt);
                     txtTitle.setText(title);
-                } else if (styleable == R.styleable.CustomTitle_menuTitle) { // 菜单标题
-                    String menuTitle = (String) typedArray.getText(R.styleable.CustomTitle_menuTitle);
-                    txtMenuTitle.setText(menuTitle);
+                } else if (styleable == R.styleable.CustomTitle_rightTitle) { // 菜单标题
+                    String rightTitle = (String) typedArray.getText(R.styleable.CustomTitle_rightTitle);
+                    txtRightTitle.setText(rightTitle);
                 } else if (styleable == R.styleable.CustomTitle_rightIcon) { // 右菜单图标，与文字不可同时存在
                     int rightIcon = typedArray.getResourceId(R.styleable.CustomTitle_rightIcon, 0);
-                    imgMenuIcon.setImageResource(rightIcon);
+                    imgRightIcon.setImageResource(rightIcon);
                 } else if (styleable == R.styleable.CustomTitle_textColor) {
                     int textColor = typedArray.getColor(R.styleable.CustomTitle_textColor, 0);
                     txtLeftTitle.setTextColor(textColor);
                     txtTitle.setTextColor(textColor);
-                    txtMenuTitle.setTextColor(textColor);
+                    txtRightTitle.setTextColor(textColor);
                 } else if (styleable == R.styleable.CustomTitle_leftTitleSize) {
                     float leftTitleSize = typedArray.getDimension(R.styleable.CustomTitle_leftTitleSize, 0);
                     leftTitleSize = DensityUtils.dp2sp(mContext, leftTitleSize);
@@ -111,10 +115,10 @@ public class CustomTitle extends LinearLayout {
                     float titleSize = typedArray.getDimension(R.styleable.CustomTitle_titleSize, 0);
                     titleSize = DensityUtils.dp2sp(mContext, titleSize);
                     txtLeftTitle.setTextSize(titleSize);
-                } else if (styleable == R.styleable.CustomTitle_menuTitleSize) {
-                    float menuTitleSize = typedArray.getDimension(R.styleable.CustomTitle_menuTitleSize, 0);
-                    menuTitleSize = DensityUtils.dp2sp(mContext, menuTitleSize);
-                    txtMenuTitle.setTextSize(menuTitleSize);
+                } else if (styleable == R.styleable.CustomTitle_rightTitleSize) {
+                    float rightTitleSize = typedArray.getDimension(R.styleable.CustomTitle_rightTitleSize, 0);
+                    rightTitleSize = DensityUtils.dp2sp(mContext, rightTitleSize);
+                    txtRightTitle.setTextSize(rightTitleSize);
                 }
             }
             typedArray.recycle();
@@ -130,7 +134,7 @@ public class CustomTitle extends LinearLayout {
             }
         });
 
-        imgMenuIcon.setOnClickListener(v -> {
+        imgRightIcon.setOnClickListener(v -> {
             if (onRightIconClickListener != null) {
                 onRightIconClickListener.onRightIconClick(v);
             }
@@ -163,7 +167,7 @@ public class CustomTitle extends LinearLayout {
             }
         });
 
-        txtMenuTitle.setOnClickListener(v -> {
+        txtRightTitle.setOnClickListener(v -> {
             if (onRightTitleClickListener != null) {
                 onRightTitleClickListener.onRightTitleClick(v);
             }
@@ -253,12 +257,12 @@ public class CustomTitle extends LinearLayout {
     }
 
     // 设置菜单标题
-    public void setMenuTitle(String menuTitle) {
-        txtMenuTitle.setText(menuTitle);
+    public void setRightTitle(String rightTitle) {
+        txtRightTitle.setText(rightTitle);
     }
 
-    public void setMenuTitle(int resId) {
-        txtMenuTitle.setText(resId);
+    public void setRightTitle(int resId) {
+        txtRightTitle.setText(resId);
     }
 
     // 设置左图标
@@ -268,6 +272,6 @@ public class CustomTitle extends LinearLayout {
 
     // 设置右图标
     public void setRightIcon(int resID) {
-        imgMenuIcon.setImageResource(resID);
+        imgRightIcon.setImageResource(resID);
     }
 }

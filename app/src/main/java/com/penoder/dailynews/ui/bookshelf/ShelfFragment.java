@@ -1,12 +1,7 @@
 package com.penoder.dailynews.ui.bookshelf;
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,39 +24,29 @@ import java.util.List;
  * @author Penoder
  * @date 18-4-25.
  */
-public class ShelfFragment extends BaseFragment {
-
-    private FragmentShelfBinding shelfBinding;
-
-    private Context mContext;
+public class ShelfFragment extends BaseFragment<FragmentShelfBinding> {
 
     private CommonRecycleAdapter<BookShelf> shelfAdapter;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        shelfBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_shelf, container, false);
-        shelfBinding.executePendingBindings();
-        shelfBinding.setViewModel(this);
-        mContext = getActivity();
-        return shelfBinding.getRoot();
-    }
-
-    @Override
-    public void initData() {
-
+    protected int getLayoutID() {
+        return R.layout.fragment_shelf;
     }
 
     @Override
     public void initView() {
         List<BookShelf> bookShelves = new ArrayList<>();
-
         for (int i = 0; i < 30; i++) {
             BookShelf bookShelf = new BookShelf("", "第 " + (i + 1) + " 本书");
             bookShelves.add(bookShelf);
         }
-
-        shelfBinding.recyclerShelf.setLayoutManager(new GridLayoutManager(mContext, 3));
+        getBinding().recyclerShelf.setFocusable(false);
+        getBinding().recyclerShelf.setLayoutManager(new GridLayoutManager(mContext, 3) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         shelfAdapter = new CommonRecycleAdapter<BookShelf>(bookShelves, R.layout.item_shelf_recycler) {
             @Override
             public void onConvertView(BookShelf bookShelf, ViewHolder holder, int position) {
@@ -69,17 +54,23 @@ public class ShelfFragment extends BaseFragment {
                 ImageView imgFeed = holder.getView(R.id.img_shelfBookFeed);
                 if (!(position + "").equals(imgFeed.getTag(imgFeed.getId()))) {
                     ViewGroup.LayoutParams params = imgFeed.getLayoutParams();
-                    int width = ScreenUtils.getScreenWidth(mContext);
-                    params.width = width / 4;
-                    params.height = width / 3;
-                    imgFeed.setLayoutParams(params);
+                    imgFeed.post(() -> {
+                        int w = imgFeed.getWidth();
+                        params.height = 297 * w / 210;
+                        imgFeed.setLayoutParams(params);
+                    });
                     imgFeed.setTag(imgFeed.getId(), position + "");
                 }
+
                 ((TextView) holder.getView(R.id.txt_shelfBookName)).setText(bookShelf.getBookName());
 
+                holder.getItemView().setOnClickListener(v -> {
+                    ToastUtil.showShortToast(mContext, "书籍 " + (position + 1));
+                });
             }
         };
-        shelfBinding.recyclerShelf.setAdapter(shelfAdapter);
+        getBinding().recyclerShelf.setAdapter(shelfAdapter);
+        getBinding().scrollShelf.scrollTo(0, getBinding().recyclerShelf.getTop());
     }
 
     /**
