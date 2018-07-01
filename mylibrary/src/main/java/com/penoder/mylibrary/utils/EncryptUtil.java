@@ -11,17 +11,14 @@ import java.security.NoSuchAlgorithmException;
 public class EncryptUtil {
 
     /**
-     * 把字节数组转成16进位制数
-     *
-     * @param bytes
-     * @return
+     * 把字节数组转成16位进制数
      */
     public static String bytesToHex(byte[] bytes) {
         StringBuffer md5str = new StringBuffer();
         //把数组每一字节换成16进制连成md5字符串
         int digital;
-        for (int i = 0; i < bytes.length; i++) {
-            digital = bytes[i];
+        for (byte aByte : bytes) {
+            digital = aByte;
             if (digital < 0) {
                 digital += 256;
             }
@@ -35,9 +32,6 @@ public class EncryptUtil {
 
     /**
      * 把字节数组转换成md5
-     *
-     * @param input
-     * @return
      */
     public static String bytesToMD5(byte[] input) {
         String md5str = null;
@@ -56,9 +50,6 @@ public class EncryptUtil {
 
     /**
      * 将字符串进行md5加密
-     *
-     * @param str 需要进行加密的字符串
-     * @return 加密后的字符串
      */
     public static String strToMD5(String str) {
         byte[] input = str.getBytes();
@@ -67,11 +58,8 @@ public class EncryptUtil {
 
     /**
      * SHA 加密
-     *
-     * @param info
-     * @return
      */
-    public static String stringToSHA(String info) {
+    public static String strToSHA(String info) {
         byte[] digesta = null;
         try {
             // 得到一个SHA-1的消息摘要
@@ -88,8 +76,11 @@ public class EncryptUtil {
     }
 
     private static String byte2hex(byte[] b) {
+        if (b == null) {
+            return "";
+        }
         String hs = "";
-        String stmp = "";
+        String stmp;
         for (byte aB : b) {
             stmp = (Integer.toHexString(aB & 0XFF));
             if (stmp.length() == 1) {
@@ -100,5 +91,4 @@ public class EncryptUtil {
         }
         return hs;
     }
-
 }

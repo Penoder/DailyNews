@@ -26,7 +26,7 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
         super.onCreate(savedInstanceState);
         mContext = this;
         binding = DataBindingUtil.setContentView(this, getLayoutID());
-        BaseViewModel viewModel = createViewModel();
+        IViewModel viewModel = createViewModel();
         binding.setVariable(BR.viewModel, viewModel != null ? viewModel : this);
         initData();
     }
@@ -40,7 +40,7 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
     public void initData() {
     }
 
-    protected BaseViewModel createViewModel() {
+    protected IViewModel createViewModel() {
         return null;
     }
 

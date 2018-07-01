@@ -33,7 +33,7 @@ public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getLayoutID(), container, false);
         binding.executePendingBindings();
-        BaseViewModel viewModel = createViewModel();
+        IViewModel viewModel = createViewModel();
         binding.setVariable(BR.viewModel, viewModel == null ? this : viewModel);
 
         return binding.getRoot();
@@ -43,7 +43,7 @@ public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
         return binding;
     }
 
-    private BaseViewModel createViewModel() {
+    private IViewModel createViewModel() {
         return null;
     }
 

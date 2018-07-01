@@ -4,11 +4,11 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.penoder.mylibrary.mvvm.command.ReplyCommand;
+import com.penoder.mylibrary.utils.ImgLoadUtil;
 
 /**
  * @author kelin
@@ -22,41 +22,30 @@ public final class ViewBindingAdapter {
                                  int width, int height,
                                  final ReplyCommand<GlideDrawable> onSuccessCommand,
                                  final ReplyCommand<Target<GlideDrawable>> onFailureCommand) {
+        // 给 ImageView 打 Tag 需要 Request 对象，否则异常 java.lang.IllegalArgumentException: You must not call setTag() on a view Glide is targeting
         imageView.setImageResource(placeholderImageRes);
-        if (imageView.getTag() == null && !(uri + imageView.getId()).equals(imageView.getTag())) {
-            RequestListener<String, GlideDrawable> requestListener = new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    if (onFailureCommand != null) {
-                        onFailureCommand.execute(target);
-                    }
-                    return false;
+        RequestListener<String, GlideDrawable> requestListener = new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                if (onFailureCommand != null) {
+                    onFailureCommand.execute(target);
                 }
-
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    if (onSuccessCommand != null) {
-                        onSuccessCommand.execute(resource);
-                    }
-                    return false;
-                }
-            };
-
-            if (width > 0 && height > 0) {
-                Glide.with(imageView.getContext())
-                        .load(uri)
-                        .override(width, height)
-                        .placeholder(placeholderImageRes)
-                        .listener(requestListener)
-                        .into(imageView);
-            } else {
-                Glide.with(imageView.getContext())
-                        .load(uri)
-                        .placeholder(placeholderImageRes)
-                        .listener(requestListener)
-                        .into(imageView);
+                return false;
             }
-            imageView.setTag(uri + imageView.getId());
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                if (onSuccessCommand != null) {
+                    onSuccessCommand.execute(resource);
+                }
+                return false;
+            }
+        };
+
+        if (width > 0 && height > 0) {
+            ImgLoadUtil.loadImg(uri, placeholderImageRes, imageView, width, height, requestListener);
+        } else {
+            ImgLoadUtil.loadImg(uri, placeholderImageRes, imageView, requestListener);
         }
     }
 }

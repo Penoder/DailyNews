@@ -34,11 +34,11 @@ import java.util.TimerTask;
  */
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
-    public ObservableField<String> userName = new ObservableField<>();
+    public final ObservableField<String> userName = new ObservableField<>();
 
-    public ObservableField<String> personSign = new ObservableField<>();
+    public final ObservableField<String> personSign = new ObservableField<>();
 
-    public ObservableField<String> headUrl = new ObservableField<>();
+    public final ObservableField<String> headUrl = new ObservableField<>();
 
     /**
      * 双击退出
@@ -110,17 +110,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
      * 头像点击事件
      */
     public ReplyCommand onAvatarCommand = new ReplyCommand(() -> {
-        if (MyApplication.getInstance().isLogin()) {
-            ToastUtil.showShortToast(mContext, "头像点击事件");
-        } else {
-            LoginActivity.startAction(this);
-        }
+//        if (MyApplication.getInstance().isLogin()) {
+            headUrl.set(Util.getRandomIcon());
+            SPUtils.put(mContext, SPKeyWord.HEAD_ICON, headUrl.get());
+//        } else {
+//            LoginActivity.startAction(this);
+//        }
     });
 
     /**
      * 背景图像点击事件
      */
     public ReplyCommand onPersonBgCommand = new ReplyCommand(() -> {
+        //
         ToastUtil.showShortToast(mContext, "背景图像点击事件");
     });
 

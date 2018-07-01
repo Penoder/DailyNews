@@ -9,22 +9,26 @@
             type="com.penoder.dailynews.ui.bookshelf.ShelfFragment" />
     </data>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll_shelf"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_shelf"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <com.penoder.dailynews.widget.DispatchLinearLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar_shelf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            app:elevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_scrollFlags="snap|scroll">
 
                 <LinearLayout
                     android:layout_width="0dip"
@@ -38,6 +42,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:contentDescription="@string/app_name"
                         android:src="@drawable/icon_search" />
 
                     <TextView
@@ -54,23 +59,25 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
+                    android:contentDescription="@string/app_name"
                     android:padding="6dp"
                     android:src="@drawable/icon_history"
-                    app:clickCommand="@{viewModel.onHistoryCommand}" />
+                    app:clickCommand="@{viewModel.onRecordCommand}" />
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_shelf"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:overScrollMode="never"
-                android:padding="2dp" />
+        </android.support.design.widget.AppBarLayout>
 
-        </com.penoder.dailynews.widget.DispatchLinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_shelf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:overScrollMode="never"
+            android:padding="2dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
 
 </layout>

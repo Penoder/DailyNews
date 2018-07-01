@@ -14,5 +14,4 @@ public class MarkFragment extends BaseFragment<FragmentMarkBinding> {
     protected int getLayoutID() {
         return R.layout.fragment_mark;
     }
-
 }

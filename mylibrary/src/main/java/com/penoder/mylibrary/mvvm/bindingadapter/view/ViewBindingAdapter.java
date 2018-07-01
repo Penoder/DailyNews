@@ -1,5 +1,6 @@
 package com.penoder.mylibrary.mvvm.bindingadapter.view;
 
+import android.annotation.SuppressLint;
 import android.databinding.BindingAdapter;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,6 +65,7 @@ public final class ViewBindingAdapter {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @BindingAdapter({"onTouchCommand"})
     public static void onTouchCommand(View view, final ResponseCommand<MotionEvent, Boolean> onTouchCommand) {
         view.setOnTouchListener(new View.OnTouchListener() {
@@ -82,9 +84,9 @@ public final class ViewBindingAdapter {
         if (visible == -1) {
             view.setVisibility(GONE);
         } else if (visible == 0) {
-            view.setVisibility(INVISIBLE);
-        } else {
             view.setVisibility(VISIBLE);
+        } else {
+            view.setVisibility(INVISIBLE);
         }
     }
 }

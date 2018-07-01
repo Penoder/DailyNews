@@ -1,9 +1,13 @@
 package com.penoder.mylibrary.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
+import com.penoder.mylibrary.R;
 
 /**
  * Created by Penoder on 17-12-23.
@@ -15,21 +19,30 @@ public class ToastUtil {
 
     private static Toast mLongToast;
 
+    @SuppressLint({"InflateParams"})
     public static void showShortToast(Context mContext, String msg) {
         if (mShortToast == null) {
-            mShortToast = Toast.makeText(new WeakReference<>(mContext).get(), msg, Toast.LENGTH_SHORT);
+            mShortToast = new Toast(mContext);
+            mShortToast.setDuration(Toast.LENGTH_SHORT);
         }
-        mShortToast.setText(msg);
+        TextView txtView = (TextView) LayoutInflater.from(mContext).inflate(R.layout.view_text_toast, null);
+        txtView.setText(msg);
+        mShortToast.setView(txtView);
         mShortToast.show();
     }
 
+    @SuppressLint({"InflateParams"})
     public static void showLongToast(Context mContext, String msg) {
         if (mLongToast == null) {
-            mLongToast = Toast.makeText(new WeakReference<>(mContext).get(), msg, Toast.LENGTH_LONG);
+            mLongToast = new Toast(mContext);
+            mLongToast.setDuration(Toast.LENGTH_LONG);
         }
-        mLongToast.setText(msg);
+        TextView txtView = (TextView) LayoutInflater.from(mContext).inflate(R.layout.view_text_toast, null);
+        txtView.setText(msg);
+        mLongToast.setView(txtView);
         mLongToast.show();
     }
+
 
     public static void cancelToast() {
         if (mShortToast != null) {
